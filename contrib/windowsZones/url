@@ -1,0 +1,1 @@
+http://unicode.org/repos/cldr/trunk/common/supplemental/windowsZones.xml
