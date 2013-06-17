@@ -12,14 +12,14 @@ Package dependencies
 To launch the RedFS components, as the very least, you need Python 2.7
 (Python 3 is not yet supported and not even tested). There are other mandatory dependencies
 on Python packages needed to launch any components of the system, such as:
-* python-twisted
-* python-sqlalchemy
+* python-twisted (11.0 or higher)
+* python-sqlalchemy (0.7.8 or higher)
 * python-openssl
 * python-crypto (python-m2crypto may go as well)
 * python-dateutil 
 
 The following packages are also recommended, though are not mandatory:
-* python-sqlalchemy-ext
+* python-sqlalchemy-ext (same version as python-sqlalchemy)
 
 
 Trusted zone components (e.g. Node)
@@ -27,11 +27,11 @@ Trusted zone components (e.g. Node)
 You need to install at least the following Python packages:
 * python-tz
 * python-netifaces
-* python-pymongo, python-bson, python-gridfs
+* python-pymongo, python-bson, python-gridfs (version 2.2 or higher)
 * python-psycopg2
 
 The following packages are also recommended, though are not mandatory:
-* python-pymongo-ext, python-bson-ext
+* python-pymongo-ext, python-bson-ext (same version as python-pymongo & Co).
 
 To deploy the databases/storage, you need to install:
 * PostgreSQL (9.1 or higher);
