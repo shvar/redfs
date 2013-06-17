@@ -33,3 +33,161 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+
+#
+# RedFS-specific extras
+#
+
+*.DS_Store
+*.pyo
+*.pyc
+*~
+*.orig
+*.mo
+*.pot
+*.ico
+*.icns
+*.e4p
+*.e4m
+backups
+node.lock
+host.lock
+/build/*
+/dist/*
+/.eric4project/*
+/.ropeproject/*
+*.sublime-project
+*.sublime-workspace
+.idea/*
+/.idea/*
+
+
+
+
+/*.pid
+/*_magic.py
+*nohg*
+
+# The "version" file generated for the builds should never be committed
+/etc/build_version
+
+
+# Some conf-files are a personal thing
+/etc/billing.conf
+/etc/billing.*.conf
+#!/etc/billing.sample.conf
+
+/etc/host.conf
+/etc/host.*.conf
+!/etc/host.sample.conf
+
+/etc/node.conf
+/etc/node.*.conf
+!/etc/node.sample.conf
+
+/etc/trusted-host.conf
+/etc/trusted-host.*.conf
+#!/etc/trusted-host.sample.conf
+
+/etc/trusted-worker.conf
+/etc/trusted-worker.*.conf
+#!/etc/trusted-worker.sample.conf
+
+/etc/webtools.conf
+/etc/webtools.*.conf
+
+
+# Ignore Emacs temporary files
+\#*\#
+
+# Ignore sqlite3 databases, if generated during debug
+*.db
+
+# Ignore the test chunk directories and sync directories.
+/.host-*
+/.sync-*
+
+# Ignore test backup directories
+/dir-test-backup-*
+
+# Ignore debug logs
+/*.log
+/*.log.*
+/webtools/*.log
+
+# .msi MS Installer files
+*.msi
+
+# C/C++ object files and temporary resources.
+*.o
+*.rc
+*.res
+
+# Temporary QT files.
+/hostgui*/*_rc.py
+/hostgui2/guiproc/ui/*_ui.py
+
+
+# Temporary files needed for automated build
+/debian/
+/debian/_cache
+
+# DEB-package-related files and Win32 packages.
+/debian/calathi-*/*
+/*.dsc
+/*.tar.gz
+/*.deb
+/*.exe
+
+# SSL keys
+/etc/ssl/*.key
+/etc/ssl/*.pem
+
+# Other /etc directories
+/etc/cron.daily/
+/etc/logrotate.d/
+/etc/nginx/
+/etc/supervisor-uwsgi-*.conf
+/etc/uwsgi.ini
+
+
+# Root modules
+/contrib/_extra/
+/contrib/macmenu/
+/fabfile/
+/hostgui2/
+/hq/
+/locale/
+/qa/
+/thost/
+/thostcli/
+/tools/
+/tworker/
+/tworker_magic_example.py
+/tworkercli/
+/webpages/
+/webtools/
+/zmqr/
+/launch.app/
+
+
+# Root files
+/recompile-*
+/regenerate-*
+/test-*
+/chost.*
+/chostgui2.*
+!/chostgui2.py
+/cthost.py
+/ctworker.py
+/chostgui2.py
+/get_build_version.py
+/get_host_feature.py
+/mac-setup.py
+/ssl_keygen.py
+/FreeBrie*
+/KeepTheCopy
+/SuperFolder
+/kill-by-uuid
+/kill-node
