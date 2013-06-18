@@ -120,6 +120,14 @@ and providing the storage space.
 capable of both providing some space to the cloud, to synchronize/backup the data in some directory
 (to ensure the continuous data protection).
 
+When running, it stores some transient information about the process of backup/synchronization, as well as about
+the data being or having been backed up. It uses SQLite database for this purpose; **Dev note:**
+__the data schema on the host is highly similar to one on the Trusted Zone, so most of the DB-related code
+is shared between them, thanks to the SQLAlchemy ORM.__
+
+During the synchronization of the contents from the cloud, and to store the data of the other peers, it also stores
+the so-called *chunks* of the data, in a predefined directory.
+
 
 History
 =======
