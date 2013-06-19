@@ -118,7 +118,8 @@ and providing the storage space.
 #### Host
 *Host* is the name of a client-side process running, connected to the RedFS cloud (particularly, to the *Node*),
 capable of both providing some space to the cloud, to synchronize/backup the data in some directory
-(to ensure the continuous data protection).
+(to ensure the continuous data protection). Each user may have multiple host processes running simultaneously
+(say, on different computers) authenticated under the same username.
 
 When running, it stores some transient information about the process of backup/synchronization, as well as about
 the data being or having been backed up. It uses SQLite database for this purpose; **Dev note:**
