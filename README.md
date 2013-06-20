@@ -13,6 +13,21 @@ sophisticated encryption.
 Everybody is invited to join hacking RedFS, ensure its security and stability and improve it even further.
 
 
+License
+=======
+RedFS is multi-licensed under GPLv3 (+ “or any later version” clause) and under the proprietary closed source license.
+
+![GPLv3 logo](http://www.gnu.org/graphics/gplv3-127x51.png "May be licensed under GPLv3 or any later version")
+
+ 1. You can use the RedFS code under the GPLv3 (or any later version) license conditions.
+ 2. If you want to use the RedFS code under any other licensing conditions,
+    please contact us for proprietary closed-source licensing details.
+ 3. When you are contributing to RedFS project in any form (as an example, but not limited to, by explicitly sending
+    us patches or GitHub pull requests)
+    you accept that your contribution will be multi-licensed on these conditions.
+ 4. The RedFS team leaves itself the right to change these multi-licensing conditions at any time.
+
+
 Features
 ========
 RedFS supports (or ready to support) such features as:
