@@ -3341,8 +3341,8 @@ class TrustedQueries(Queries):
                     chunk.size,
                     chunk_per_host_view.chunk_hash,
                     chunk_per_host_view.chunk_crc32,
-                    repl_view.ORDER
-                chunk_replica_count BY
+                    repl_view.chunk_replica_count
+                ORDER BY
                     repl_view.chunk_replica_count ASC,
                     chunk.id ASC
                 LIMIT :max_chunks
