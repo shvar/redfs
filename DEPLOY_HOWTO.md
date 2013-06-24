@@ -16,6 +16,9 @@ Then, you are suggested to decide whether you want to launch the system in the d
 (see [the “start hacking” howto](START_HACKING_HOWTO.md#debug-mode) for details). You are highly suggested to launch
 it in the debug mode. The following explanation assumes it.
 
+Note that at any moment, you can watch the list of available Node CLI commands by `cnode.py --help`,
+and the list of available Client/Host CLI commands by `chost.py --help`.
+
 
 Deploying the Node
 ==================
@@ -56,14 +59,39 @@ Among the mandatory settings to be mentioned in the `node.conf`, are following:
 
 After everything is configured, you can launch the Node via `cnode.py --launch`.
 
-Also note that, at any moment, you can watch the list of available Node CLI commands by `cnode.py --help`.
-
 
 Adding the users
 ================
 … and, optionally, the hosts.
 
+Every user who wants to connect to RedFS need their own account. For authentication, the user needs
+their own (unique) username, and a password; but, for better security, the raw passwords are not stored in the databases
+and never transmitted.
+**Dev note:** _in particular, for authentication, the regular HTTP DIGEST authentication method is used._
 
+Thus, every user needs their own username and a digest.
+
+To stress that it is the user who knows the password, and that the password never leaves the user side in a clean form,
+the digest generation code is present only in the `chost.py` rather than in the `cnode.py`.
+You must launch `./chost.py --launch <username> <password>` to generate a desired digest line.
+Also, you may launch it with the `./chost.py --launch <username>`, without passing the password; the CLI will require
+you to enter the password without displaying it on the screen, what is a little more secure.
+
+Example:
+
+    ~/redfs:$ ./chost.py --digest MyUsername MyP@SSw0rD
+    For username MyUsername, the digest is 2387ca58a5845f7ecb07022506ca2d7a71e25403
+
+After you've generated the digest, on the Node side, you can add the desired user via `cnode.py --add-user` command:
+
+    cnode.py --add-user MyUsername 2387ca58a5845f7ecb07022506ca2d7a71e25403
+
+**Dev note:** _normally, you don't need any more actions for the newly created user to properly use the system.
+Though, it is often very convenient to be able to control the Host-specific credentials of the user.
+Each Host refers to a separate installation of the RedFS client under the specified username on any distinct computer,
+and each such Host is usually referred to by a Host UUID. If you want to bind any specific host UUID to a user,
+you can do that with a command like `cnode.py --add-host <username> <host UUID>`, e.g.:
+`cnode.py --add-host MyUsername 00000000-1111-0000-0000-000000000001`._
 
 
 Deploying the Client(s)/Host(s)
