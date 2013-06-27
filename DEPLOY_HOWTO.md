@@ -17,11 +17,16 @@ Then, you are suggested to decide whether you want to launch the system in the d
 it in the debug mode. The following explanation assumes it.
 
 Note that at any moment, you can watch the list of available Node CLI commands by `cnode.py --help`,
-and the list of available Client/Host CLI commands by `chost.py --help`.
+and the list of available Client/Host CLI commands by `chost.py --help` (or `chost.community.py --help`,
+more on that later).
 
 
 Deploying the Node
 ==================
+
+Configuring the `node.conf` file
+--------------------------------
+
 Before launching the Node, create the `node.conf` configuration file. When running in debug mode,
 it should be placed in the `etc/` directory inside the codebase; in release mode, it will be system-wide stored
 inside `/etc/freebrie`.
@@ -56,6 +61,10 @@ Among the mandatory settings to be mentioned in the `node.conf`, are following:
  * `[node-###]` sections — each section refers to a separate Node process running on the same configuration.
    For the regular deployment, you better leave only a single section. The UUID of the Node you specify in this section
    should be unique in the cloud, and must correspond to the one mentioned in the SSL Certificate.
+
+
+Launching the node
+------------------
 
 After everything is configured, you can launch the Node via `cnode.py --launch`.
 
@@ -119,3 +128,58 @@ the per-host data. This data include:_
  - _In the release mode, this directory will be named “`chunks`” and located in the “dot-projectname” directory
    in your home/user directory. For example, the chunks for the Community Edition will be located in  
    in `~/.freebrie/chunks`._
+
+
+Configuring the `host.*.conf` file
+----------------------------------
+For every RedFS installation, the clients need the matching `host.*.conf` file. This file defines how to connect
+to the RedFS cloud, and what features are available. It should match the appropriate `node.conf` file on the
+launched Node.
+
+Why is it called `host.*.conf` here, why is the wildcard? That's again caused by the “editions” capability of RedFS.
+There might be multiple editions built from the same codebase, and each edition might have the appropriate and the
+independent `host.*.conf` file. But, as currently you are assumed to use the “community” edition, you should create
+the `host.community.conf` file.
+
+But how the code decides which `host.*.conf` file to use, and which edition it is running? Actually, it is the name
+of the launcher file which defines it; the [`chost.py`](/chost.py) file provided is only the universal boiler plate,
+but each edition might have the separate launcher file (which may be just the the renamed symlink to the same
+`chost.py` file). For the purpose of Community Edition to be self-sufficient,
+the [`chost.community.py`](/chost.community.py) symlink is already available in the distribution and should be used
+subsequently.
+
+**Dev note**: _`host.*.conf` allows to share the same codebase for multiple feature-different installations/distributions.
+One can create the build procedure to generate multiple distribution packages, different only on the provided
+`host.*.conf` file, and the name of the launcher file._
+
+[/etc/host.sample.conf](/etc/host.sample.conf) contains a good documented overview and a sample of settings
+which should be placed in it. In particular, the following settings are especially important:
+
+* Section `[default-node]` (contains the settings about which Node should be used by the client):
+ - `uuid` — should match the UUID defined on the Node.
+ - `urls` — should contain the URLs on which the running Node may be available. 
+* Section `[default-log-reporting]` (contains the information how the running Clients/Hosts may report
+  the errors and the problems to the Node):
+ - `method` — contains either `internal` (meaning that the error logs are transferred by the internal protocol
+   of the Host-Node communication), or `smtp` (the error logs are transferred by the regular email);
+   
+   `internal` reporting method is normally great and doesn't need any external dependencies. Though the obvious
+   limitation is that it requires the messaging protocol to be working properly; if it is the messaaging subsystem
+   which causes any problems, the administrator won't receive any error logs.
+   
+   `smtp` method doesn't have such a limitation, but requires the SMTP server to be configured to accept
+    the error logs. Various details of the SMTP authorization may be configured via such settings as `smtp-recipient`,
+   `smtp-server`, `smtp-starttls`, `smtp-login`, `smtp-password`.
+
+
+Launching the host
+------------------
+
+Now, you need to log in to the RedFS, using the user credentials you've added during the “Adding the users” step,
+particularly the username and the password. Also, you need to choose a TCP port your client will be listening
+for the inbound connections. No other program should be listening on this port. 
+
+So, let's assume you've chose the port 41000, and you are logging in as the user “MyUsername”
+with the password “MyP@SSw0rD”:
+
+    chost.community.py --init 41000 MyUsername MyP@SSw0rD
