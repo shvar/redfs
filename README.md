@@ -87,18 +87,6 @@ to store the structure and to version the user contents stored in the cloud.
   On the other hand, some (rarely executed but still crucial) queries may be pretty complex, 
   so, a powerful high-CPU server would be a good choice for deployment of the database._
 
-**Dev note:** _SQLAlchemy ORM is used to perform the DB access; to better control the memory consumption and allow
-for streaming database access, most of the DB-aware code accesses the DB using SQLAlchemy so-called
-“expression API” (contrary to another one, “query API”), and this is the preferred method to programmatically
-access the database from the RedFS code._
-* _There may be trace amounts of the code using SQLAlchemy “query API”, most likely in non-memory-critical areas._
-* _There are also noticeable volumes of legacy textual “raw SQL” queries (though still running through 
-  the SQLAlchemy backend), and the strategic aim is to get rid of all of them, rewriting them to utilize 
-  the “expression API”._
-* _And finally, there are also several crucial spots where the PostgreSQL-specific features are used
-  (not just, say, the PostgreSQL-specific functions, but most importantly — some
-  PostgreSQL triggers, PL/PgSQL features, etc); for now, there are no plans to get rid of such code
-  in the nearest time, due to its importance._
 
 #### Docstore (non-relational database)
 For some data with the usage profile less suitable for the relational databases, the cloud requires
